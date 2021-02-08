@@ -1,0 +1,120 @@
+{% load static %} {% load socialaccount %} 
+{% providers_media_js %}
+<html>
+  <head>
+    <title>Messaging App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  </head>
+
+  <style>
+    .alert {
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
+  <body>
+    {% if messag %}
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
+      <strong>{{messag}} </strong>
+    </div>
+    {% endif %}
+
+    <div class="hero">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="login()">
+            Log In
+          </button>
+          <button type="button" class="toggle-btn" onclick="register()">
+            Register
+          </button>
+        </div>
+        <div class="social-icons">
+          <a href="{% provider_login_url "google" %}">
+          
+          <img src="{% static 'images/gp.png' %}" />
+          </a>
+          <img src="{% static 'images/tw.png' %}" />
+        </div>
+        <form id="login" class="input-group" action="login" method = 'POST'>{% csrf_token %}
+          <input
+            type="text"
+            class="input-field"
+            name="email_id"
+            placeholder="User Id"
+            required
+          /><br />
+          <input
+            type="password"
+            name="password"
+            class="input-field"
+            placeholder="Enter Password"
+            required
+          />
+          <button type="submit" class="submit-btn">Log In</button>
+        </form>
+        <form id="register" class="input-group" action="register" method='POST'>{% csrf_token %}
+          <input
+            type="text"
+            name="email"
+            class="input-field"
+            placeholder="Email Id"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            class="input-field"
+            placeholder="Enter Password"
+            required
+          />
+          <input
+            type="password"
+            name="cpassword"
+            class="input-field"
+            placeholder="Re enter Password"
+            required
+          />
+          <button type="submit" class="submit-btn">Register</button>
+        </form>
+      </div>
+      <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+          x.style.left = "-400px";
+          y.style.left = "50px";
+          z.style.left = "110px";
+        }
+        function login() {
+          x.style.left = "50px";
+          y.style.left = "450px";
+          z.style.left = "0";
+        }
+      </script>
+    </div>
+  </body>
+</html>
